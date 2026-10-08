@@ -1,13 +1,13 @@
 const productConfig = {
   lesson: {
-    basic: { price: "$29", license: "1 educator", url: "" },
-    advanced: { price: "$59", license: "Professional use", url: "" },
-    enterprise: { price: "$149", license: "Department license", url: "" }
+    basic: { price: "$29", license: "1 educator", url: "https://whop.com/curravue/lesson-architecture-engine/" },
+    advanced: { price: "$59", license: "Professional use", url: "https://whop.com/curravue/lesson-architecture-engine/" },
+    enterprise: { price: "$149", license: "Department license", url: "https://whop.com/curravue/lesson-architecture-engine/" }
   },
   assessment: {
-    basic: { price: "$24", license: "1 educator", url: "" },
-    advanced: { price: "$49", license: "Professional use", url: "" },
-    enterprise: { price: "$129", license: "Department license", url: "" }
+    basic: { price: "$24", license: "1 educator", url: "https://whop.com/curravue/formative-checkpoint-intelligence/" },
+    advanced: { price: "$49", license: "Professional use", url: "https://whop.com/curravue/formative-checkpoint-intelligence/" },
+    enterprise: { price: "$129", license: "Department license", url: "https://whop.com/curravue/formative-checkpoint-intelligence/" }
   },
   math: {
     basic: {
