@@ -13,17 +13,17 @@ const productConfig = {
     basic: {
       price: "$29",
       license: "1 educator",
-      url: "https://whop.com/curravue/ai-powered-math-educator-playbook"
+      url: "https://whop.com/curravue/math-educator-playbook/"
     },
     advanced: {
       price: "$49",
       license: "Professional use",
-      url: "https://whop.com/curravue/ai-powered-math-educator-playbook"
+      url: "https://whop.com/curravue/math-educator-playbook/"
     },
     enterprise: {
       price: "$129",
       license: "Department license",
-      url: "mailto:support@curravue.com?subject=Curravue%20Math%20Playbook%20Department%20License"
+      url: "https://whop.com/curravue/math-educator-playbook/"
     }
   },
   automation: {
