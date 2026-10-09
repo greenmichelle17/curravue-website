@@ -27,19 +27,19 @@ const productConfig = {
     }
   },
   automation: {
-    basic: { price: "$24", license: "1 educator", url: "" },
-    advanced: { price: "$49", license: "Professional use", url: "" },
-    enterprise: { price: "$129", license: "Department license", url: "" }
+    basic: { price: "$24", license: "1 educator", url: "https://whop.com/curravue/teacher-admin-automation-suite/" },
+    advanced: { price: "$49", license: "Professional use", url: "https://whop.com/curravue/teacher-admin-automation-suite/" },
+    enterprise: { price: "$129", license: "Department license", url: "https://whop.com/curravue/teacher-admin-automation-suite/" }
   },
   accessibility: {
-    basic: { price: "$29", license: "1 educator", url: "" },
-    advanced: { price: "$59", license: "Professional use", url: "" },
-    enterprise: { price: "$149", license: "Department license", url: "" }
+    basic: { price: "$29", license: "1 educator", url: "https://whop.com/curravue/udl-accessibility-design-system/" },
+    advanced: { price: "$59", license: "Professional use", url: "https://whop.com/curravue/udl-accessibility-design-system/" },
+    enterprise: { price: "$149", license: "Department license", url: "https://whop.com/curravue/udl-accessibility-design-system/" }
   },
   standards: {
-    basic: { price: "$29", license: "1 educator", url: "" },
-    advanced: { price: "$59", license: "Professional use", url: "" },
-    enterprise: { price: "$149", license: "Department license", url: "" }
+    basic: { price: "$29", license: "1 educator", url: "https://whop.com/curravue/standards-expansion-engine/" },
+    advanced: { price: "$59", license: "Professional use", url: "https://whop.com/curravue/standards-expansion-engine/" },
+    enterprise: { price: "$149", license: "Department license", url: "https://whop.com/curravue/standards-expansion-engine/" }
   }
 };
 
