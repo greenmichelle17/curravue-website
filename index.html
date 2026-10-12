@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Curravue | AI Prompt Systems Built for Educators</title>
+
+  <meta
+    name="description"
+    content="Curravue gives K-12 and college educators ready-to-use AI prompt systems for lesson planning, assessment, differentiation, accessibility, and teacher administration."
+  />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <meta property="og:title" content="Curravue | AI Prompt Systems Built for Educators" />
+  <meta property="og:description" content="Spend less time fighting AI prompts and more time teaching with educator-built AI workflow systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://curravue.com/" />
+  <meta property="og:image" content="https://curravue.com/assets/curravue-logo.jpg" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://curravue.com/" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            curravue: {
+              navy: "#0f172a",
+              indigo: "#4f46e5",
+              blue: "#2563eb",
+              cyan: "#0891b2",
+              teal: "#0f766e",
+              amber: "#f59e0b",
+              light: "#f8fafc"
+            }
+          },
+          boxShadow: {
+            soft: "0 20px 50px rgba(15,23,42,.08)",
+            glow: "0 0 60px rgba(79,70,229,.24)"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+    ::selection { background: #c7d2fe; color: #1e1b4b; }
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #818cf8, #38bdf8, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glass {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(14px);
+    }
+    .before-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .after-card {
+      background:
+        radial-gradient(circle at top right, rgba(99,102,241,.22), transparent 32%),
+        linear-gradient(145deg, #111827, #0f172a);
+    }
+    .product-card {
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 60px rgba(15,23,42,.12);
+      border-color: #a5b4fc;
+    }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-slate-900"
+  >
+    Skip to content
+  </a>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+
+      <a href="#top" class="flex items-center gap-3" aria-label="Curravue home">
+        <img
+          src="assets/curravue-logo.jpg"
+          alt="Curravue"
+          class="h-11 w-auto rounded-md object-contain"
+        />
+      </a>
+
+      <nav class="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
+        <a href="#features" class="transition hover:text-indigo-600">Features</a>
+        <a href="#systems" class="transition hover:text-indigo-600">Systems</a>
+        <a href="#pricing" class="transition hover:text-indigo-600">Pricing</a>
+        <a href="#faq" class="transition hover:text-indigo-600">FAQ</a>
+      </nav>
+
+      <a
+        href="#systems"
+        class="hidden rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-700 md:inline-flex"
+      >
+        Browse Systems
+      </a>
+
+      <button
+        id="mobileMenuButton"
+        class="rounded-lg border border-slate-200 p-2 md:hidden"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white px-5 py-5 md:hidden">
+      <div class="flex flex-col gap-4 font-semibold text-slate-700">
+        <a href="#features">Features</a>
+        <a href="#systems">Systems</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#systems" class="mt-2 rounded-xl bg-indigo-600 px-4 py-3 text-center text-white">
+          Browse Systems
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section id="top" class="hero-grid relative overflow-hidden bg-slate-950 text-white">
+      <div class="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-600/20 blur-3xl"></div>
+
+      <div class="relative mx-auto max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
+        <div class="mx-auto max-w-5xl text-center">
+
+          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-400/10 px-4 py-2 text-sm font-semibold text-indigo-200">
+            <span class="h-2 w-2 rounded-full bg-teal-400"></span>
+            Built for educators who want better AI results without becoming AI experts
+          </div>
+
+          <h1 class="text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-7xl">
+            Stop writing AI prompts from scratch.
+            <span class="gradient-text">Get classroom-ready deliverables on the very first try.</span>
+          </h1>
+
+          <p class="mx-auto mt-7 max-w-4xl text-lg leading-8 text-slate-300 sm:text-xl">
+            Curravue transforms chaotic ChatGPT chats into highly structured planning
+            engines. Reclaim your nights and weekends with elite lesson architectures,
+            accessibility tools, assessment workflows, and teacher admin systems built
+            specifically for modern educators.
+          </p>
+
+          <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+            <a href="#systems" class="rounded-xl bg-indigo-500 px-7 py-4 text-base font-black text-white shadow-xl shadow-indigo-600/30 transition hover:bg-indigo-400">
+              Explore Systems
+            </a>
+
+            <a href="#before-after" class="rounded-xl border border-slate-600 bg-white/5 px-7 py-4 text-base font-bold text-white transition hover:border-slate-400 hover:bg-white/10">
+              See How It Works
+            </a>
+          </div>
+
+          <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-slate-400">
+            <span class="flex items-center gap-2"><span class="text-teal-400">✓</span> Copy-and-paste workflows</span>
+            <span class="flex items-center gap-2"><span class="text-teal-400">✓</span> Built for real educator tasks</span>
+            <span class="flex items-center gap-2"><span class="text-teal-400">✓</span> Works with leading AI platforms</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAIN POINT -->
+    <section class="bg-white py-20">
+      <div class="mx-auto max-w-6xl px-5 text-center lg:px-8">
+        <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">The real problem</p>
+
+        <h2 class="mx-auto mt-3 max-w-4xl text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+          AI was supposed to save teachers time.
+          <span class="text-slate-500">So why are you spending so much time fixing what it gives you?</span>
+        </h2>
+
+        <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+          The problem is not your teaching expertise. It is the quality of the
+          instructions going into the AI. Weak prompts create weak output. Curravue gives
+          you the workflow before you ever open the chat box.
+        </p>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section id="features" class="bg-slate-100 py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">Less prompting. Better output.</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">Generic AI vs. Curravue</h2>
+          <p class="mt-5 text-lg text-slate-600">Same AI platform. Completely different workflow.</p>
+        </div>
+
+        <div class="mt-14 grid gap-7 lg:grid-cols-2">
+
+          <article class="rounded-3xl border border-slate-200 bg-white p-7 shadow-soft sm:p-9">
+            <div class="mb-8 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-wider text-slate-400">The Friction</p>
+                <h3 class="mt-1 text-2xl font-black text-slate-900">Generic 1-Line Prompts</h3>
+              </div>
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-2xl text-rose-600">×</div>
+            </div>
+
+            <div class="space-y-5">
+              <div class="flex gap-4"><span class="mt-1 text-rose-500">✕</span><div><strong class="block text-slate-900">Bland results</strong><p class="mt-1 text-sm leading-6 text-slate-600">Generic instructions produce generic lessons and activities.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-rose-500">✕</span><div><strong class="block text-slate-900">Endless correction cycles</strong><p class="mt-1 text-sm leading-6 text-slate-600">You spend your saved time rewriting the output.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-rose-500">✕</span><div><strong class="block text-slate-900">Repetitive typing</strong><p class="mt-1 text-sm leading-6 text-slate-600">You repeatedly explain your grade, standards, format, and expectations.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-rose-500">✕</span><div><strong class="block text-slate-900">Unpredictable formatting</strong><p class="mt-1 text-sm leading-6 text-slate-600">Every response looks different and requires cleanup.</p></div></div>
+            </div>
+          </article>
+
+          <article class="rounded-3xl border border-indigo-200 bg-indigo-950 p-7 text-white shadow-glow sm:p-9">
+            <div class="mb-8 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-wider text-indigo-300">The Curravue Difference</p>
+                <h3 class="mt-1 text-2xl font-black">Curravue Prompt Engines</h3>
+              </div>
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-400/15 text-2xl text-teal-300">✓</div>
+            </div>
+
+            <div class="space-y-5">
+              <div class="flex gap-4"><span class="mt-1 text-teal-300">✓</span><div><strong class="block">Deep instructional scaffolding</strong><p class="mt-1 text-sm leading-6 text-indigo-100/80">Tell AI exactly how instruction should unfold.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-teal-300">✓</span><div><strong class="block">Standards-driven workflows</strong><p class="mt-1 text-sm leading-6 text-indigo-100/80">Build standards and learning expectations into the workflow.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-teal-300">✓</span><div><strong class="block">No daily setup repetition</strong><p class="mt-1 text-sm leading-6 text-indigo-100/80">Reuse the system and change only your instructional variables.</p></div></div>
+              <div class="flex gap-4"><span class="mt-1 text-teal-300">✓</span><div><strong class="block">Consistent professional output</strong><p class="mt-1 text-sm leading-6 text-indigo-100/80">Give the AI a clear structure before it starts generating.</p></div></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE & AFTER -->
+    <section id="before-after" class="bg-white py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">See what you are buying</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
+            From vague AI output to an actual instructional workflow
+          </h2>
+          <p class="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            Curravue gives AI the instructional structure most educators do not have time to type manually.
+          </p>
+        </div>
+
+        <div class="mt-14 grid items-stretch gap-7 lg:grid-cols-2">
+
+          <article class="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50">
+            <div class="border-b border-slate-200 bg-white px-7 py-5">
+              <div class="flex items-center gap-3">
+                <span class="h-3 w-3 rounded-full bg-rose-400"></span>
+                <p class="font-black text-slate-900">What ChatGPT gives you normally</p>
+              </div>
+            </div>
+
+            <div class="p-7 sm:p-9">
+              <div class="before-code rounded-2xl border border-slate-200 bg-white p-6 text-sm leading-7 text-slate-600 shadow-sm">
+                <p class="font-bold text-slate-900">Lesson Plan: Linear Equations</p>
+                <div class="mt-5 space-y-3">
+                  <p>• Introduce linear equations.</p>
+                  <p>• Show students examples.</p>
+                  <p>• Give students practice problems.</p>
+                </div>
+                <p class="mt-6 text-slate-400">Assessment: Ask students if they understand.</p>
+              </div>
+
+              <div class="mt-7 space-y-3 text-sm font-semibold text-slate-500">
+                <p>✕ No prerequisite check</p>
+                <p>✕ No misconception planning</p>
+                <p>✕ No instructional sequence</p>
+                <p>✕ No built-in differentiation</p>
+                <p>✕ No usable formative evidence</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="after-card overflow-hidden rounded-3xl border border-indigo-500/30 text-white shadow-glow">
+            <div class="border-b border-white/10 bg-white/5 px-7 py-5">
+              <div class="flex items-center gap-3">
+                <span class="h-3 w-3 rounded-full bg-teal-400"></span>
+                <p class="font-black">What you unlock with Curravue</p>
+              </div>
+            </div>
+
+            <div class="p-7 sm:p-9">
+              <div class="space-y-5">
+                <div class="glass rounded-2xl p-5">
+                  <p class="text-xs font-black uppercase tracking-widest text-indigo-300">Step 1</p>
+                  <p class="mt-2 font-black">Activate prerequisite knowledge</p>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">
+                    Check whether students recognize inverse operations and understand equality before introducing multistep equations.
+                  </p>
+                </div>
+
+                <div class="glass rounded-2xl p-5">
+                  <p class="text-xs font-black uppercase tracking-widest text-indigo-300">Step 2</p>
+                  <p class="mt-2 font-black">Model one cognitive move at a time</p>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">
+                    Reveal each transformation separately. Name the operation. Explain why it preserves equality. Show the updated equation.
+                  </p>
+                </div>
+
+                <div class="glass rounded-2xl p-5">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <p class="text-xs font-black uppercase tracking-widest text-teal-300">Formative Checkpoint</p>
+                      <p class="mt-2 font-black">Diagnose before moving forward</p>
+                    </div>
+                    <span class="rounded-full bg-teal-400/15 px-3 py-1 text-xs font-bold text-teal-200">Built in</span>
+                  </div>
+                  <p class="mt-3 text-sm leading-6 text-slate-300">
+                    Present an intentional error and ask students to identify exactly where the equality relationship breaks.
+                  </p>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div class="rounded-xl bg-indigo-500/10 p-4">
+                    <strong class="text-sm">Scaffolding</strong>
+                    <p class="mt-1 text-xs leading-5 text-slate-300">Visual balance model + sentence stems</p>
+                  </div>
+                  <div class="rounded-xl bg-indigo-500/10 p-4">
+                    <strong class="text-sm">Cognitive Load</strong>
+                    <p class="mt-1 text-xs leading-5 text-slate-300">One transformation per worked step</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT CATALOG -->
+    <section id="systems" class="bg-slate-950 py-24 text-white">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-300">Curravue Systems</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
+            Start with the task stealing the most time from your week.
+          </h2>
+          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-400">
+            Each system gives you reusable instructions for a specific educator workflow.
+            Add your topic, grade, standard, or situation. Let the system handle the prompt structure.
+          </p>
+        </div>
+
+        <div id="pricing" class="mt-14 grid gap-7 lg:grid-cols-3">
+
+          <article class="product-card flex flex-col rounded-3xl border border-slate-800 bg-slate-900 p-7">
+            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500/15 text-2xl">📘</div>
+            <p class="text-xs font-black uppercase tracking-[.18em] text-indigo-300">Lesson Design</p>
+            <h3 class="mt-3 text-2xl font-black">Lesson Architecture Engine</h3>
+            <p class="mt-4 leading-7 text-slate-400">
+              Turn learning goals into sequenced instructional structures without building every lesson prompt from scratch.
+            </p>
+            <ul class="mt-7 space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Structured lesson sequencing</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Prerequisite and readiness checks</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Modeling and guided practice</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Formative evidence and closure</li>
+            </ul>
+
+            <div class="mt-auto pt-9">
+              <div class="mb-5">
+                <span class="text-4xl font-black">$19.99</span>
+                <span class="text-sm text-slate-500"> digital access</span>
+              </div>
+
+              <!-- Paste your Whop Product Checkout Link Here -->
+              <a href="https://whop.com/curravue/lesson-architecture-engine/" target="_blank" rel="noopener noreferrer"
+                 class="block rounded-xl bg-indigo-500 px-5 py-3.5 text-center font-black text-white transition hover:bg-indigo-400">
+                Unlock Prompt Engine
+              </a>
+            </div>
+          </article>
+
+          <article class="product-card relative flex flex-col rounded-3xl border border-amber-400/50 bg-slate-900 p-7 shadow-xl shadow-amber-500/5">
+            <div class="absolute right-5 top-5 rounded-full bg-amber-400 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-slate-950">High Impact</div>
+            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/10 text-2xl">🎯</div>
+            <p class="text-xs font-black uppercase tracking-[.18em] text-amber-300">Assessment</p>
+            <h3 class="mt-3 text-2xl font-black">Formative Checkpoint Intelligence</h3>
+            <p class="mt-4 leading-7 text-slate-400">
+              Generate targeted checks for understanding that reveal misconceptions before they turn into assessment surprises.
+            </p>
+            <ul class="mt-7 space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Misconception-focused questions</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Exit tickets and quick checks</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Student reasoning analysis</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Follow-up instructional responses</li>
+            </ul>
+
+            <div class="mt-auto pt-9">
+              <div class="mb-5">
+                <span class="text-4xl font-black">$19.99</span>
+                <span class="text-sm text-slate-500"> digital access</span>
+              </div>
+
+              <!-- Paste your Whop Product Checkout Link Here -->
+              <a href="https://whop.com/curravue/formative-checkpoint-intelligence/" target="_blank" rel="noopener noreferrer"
+                 class="block rounded-xl bg-amber-400 px-5 py-3.5 text-center font-black text-slate-950 transition hover:bg-amber-300">
+                Unlock Prompt Engine
+              </a>
+            </div>
+          </article>
+
+          <article class="product-card flex flex-col rounded-3xl border border-slate-800 bg-slate-900 p-7">
+            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-500/15 text-2xl">⚡</div>
+            <p class="text-xs font-black uppercase tracking-[.18em] text-teal-300">Teacher Workflow</p>
+            <h3 class="mt-3 text-2xl font-black">Teacher Admin Automation Suite</h3>
+            <p class="mt-4 leading-7 text-slate-400">
+              Reduce repetitive communication and administrative writing without handing over your professional judgment.
+            </p>
+            <ul class="mt-7 space-y-3 text-sm text-slate-300">
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Family progress updates</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Rubric feedback workflows</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> LMS announcements</li>
+              <li class="flex gap-3"><span class="text-teal-400">✓</span> Weekly summaries and follow-up</li>
+            </ul>
+
+            <div class="mt-auto pt-9">
+              <div class="mb-5">
+                <span class="text-4xl font-black">$19.99</span>
+                <span class="text-sm text-slate-500"> digital access</span>
+              </div>
+
+              <!-- Paste your Whop Product Checkout Link Here -->
+              <a href="https://whop.com/curravue/teacher-admin-automation-suite/" target="_blank" rel="noopener noreferrer"
+                 class="block rounded-xl bg-teal-500 px-5 py-3.5 text-center font-black text-white transition hover:bg-teal-400">
+                Unlock Prompt Engine
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="bg-white py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">Simple by design</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">
+            From checkout to usable output in three steps
+          </h2>
+        </div>
+
+        <div class="relative mt-16 grid gap-8 md:grid-cols-3">
+
+          <article class="relative rounded-3xl border border-slate-200 bg-slate-50 p-8">
+            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-lg font-black text-white">1</div>
+            <h3 class="text-xl font-black">Choose Your Workflow</h3>
+            <p class="mt-4 leading-7 text-slate-600">
+              Select the Curravue system that matches your biggest time drain and complete secure checkout through Whop.
+            </p>
+          </article>
+
+          <article class="relative rounded-3xl border border-slate-200 bg-slate-50 p-8">
+            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-lg font-black text-white">2</div>
+            <h3 class="text-xl font-black">Copy the Architecture</h3>
+            <p class="mt-4 leading-7 text-slate-600">
+              Receive your protected prompt system and supporting files after purchase. Open the workflow and add your instructional variables.
+            </p>
+          </article>
+
+          <article class="relative rounded-3xl border border-slate-200 bg-slate-50 p-8">
+            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-lg font-black text-white">3</div>
+            <h3 class="text-xl font-black">Run Your Workflow</h3>
+            <p class="mt-4 leading-7 text-slate-600">
+              Paste the system into ChatGPT, Claude, or another supported AI platform. Add your topic. Review the output. Refine where your professional judgment requires it.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HIDDEN COST -->
+    <section class="bg-indigo-50 py-20">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:px-8">
+        <div>
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">The hidden cost</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">The expensive part is not the prompt system.</h2>
+          <p class="mt-5 text-xl font-bold text-indigo-700">It is the hours you spend trying to recreate one.</p>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            You could study prompt engineering, test dozens of variations, rewrite the instructions,
+            and keep correcting weak responses. Curravue gives you a repeatable starting point so your time stays focused on teaching.
+          </p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-8 shadow-soft">
+          <p class="text-sm font-black uppercase tracking-wider text-slate-400">Instead of</p>
+
+          <div class="mt-5 space-y-4">
+            <div class="flex items-center gap-4 rounded-2xl bg-slate-50 p-4"><span class="text-xl">⏱</span><p class="font-bold text-slate-800">Rewriting prompts over and over</p></div>
+            <div class="flex items-center gap-4 rounded-2xl bg-slate-50 p-4"><span class="text-xl">🧩</span><p class="font-bold text-slate-800">Piecing together inconsistent outputs</p></div>
+            <div class="flex items-center gap-4 rounded-2xl bg-slate-50 p-4"><span class="text-xl">🌙</span><p class="font-bold text-slate-800">Giving up another evening to prep work</p></div>
+          </div>
+
+          <div class="my-7 h-px bg-slate-200"></div>
+
+          <p class="text-sm font-black uppercase tracking-wider text-indigo-600">Start with</p>
+          <p class="mt-2 text-2xl font-black text-slate-950">A workflow already built for the task.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-24">
+      <div class="mx-auto max-w-4xl px-5 lg:px-8">
+
+        <div class="text-center">
+          <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-600">Questions educators ask</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="mt-12 space-y-4">
+
+          <details class="group rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-slate-900">
+              Do I need a paid ChatGPT account?
+              <span class="faq-icon text-2xl font-light text-indigo-600 transition-transform">+</span>
+            </summary>
+            <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+              No. Curravue is not tied to one AI subscription. The prompt systems are designed to work with leading conversational AI platforms such as ChatGPT, Claude, Gemini, and Copilot. Platform limits and capabilities differ by provider and plan.
+            </p>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-slate-900">
+              Do I need to understand prompt engineering?
+              <span class="faq-icon text-2xl font-light text-indigo-600 transition-transform">+</span>
+            </summary>
+            <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+              No. That is the point. Curravue gives you the detailed instructions and workflow structure. You add the information specific to your lesson, assessment, communication, or planning task.
+            </p>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-slate-900">
+              Can I use Curravue across different grade levels?
+              <span class="faq-icon text-2xl font-light text-indigo-600 transition-transform">+</span>
+            </summary>
+            <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+              Yes. Many Curravue workflows use grade, course, standards, learner needs, and instructional context as variables. Follow the guidance included with each product and review all AI-generated material before classroom use.
+            </p>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-black text-slate-900">
+              How do school or department licenses work?
+              <span class="faq-icon text-2xl font-light text-indigo-600 transition-transform">+</span>
+            </summary>
+            <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+              Individual purchases are licensed for the purchaser according to the terms included with the product. Schools, teams, departments, and districts that want broader use should contact Curravue for the appropriate licensing option.
+            </p>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="bg-slate-950 py-20 text-white">
+      <div class="mx-auto max-w-5xl px-5 text-center lg:px-8">
+        <p class="text-sm font-black uppercase tracking-[.2em] text-indigo-300">Your time belongs somewhere else</p>
+        <h2 class="mt-4 text-3xl font-black tracking-tight sm:text-5xl">
+          Stop learning how to prompt AI.
+          <span class="gradient-text">Start using it for the work you already do.</span>
+        </h2>
+        <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-400">
+          Choose your workflow, add your instructional context, and spend less time fighting the prompt box.
+        </p>
+        <a href="#systems" class="mt-9 inline-flex rounded-xl bg-indigo-500 px-8 py-4 text-base font-black text-white shadow-xl shadow-indigo-500/20 transition hover:bg-indigo-400">
+          Browse Curravue Systems
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950 text-slate-400">
+    <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+      <div>
+        <img src="assets/curravue-logo.jpg" alt="Curravue" class="h-9 w-auto rounded bg-white object-contain" />
+        <p class="mt-2 text-sm">AI workflow systems built for educators.</p>
+      </div>
+
+      <nav class="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+        <a href="privacy.html" class="transition hover:text-white">Privacy</a>
+        <a href="terms.html" class="transition hover:text-white">Terms</a>
+        <a href="mailto:support@curravue.com" class="transition hover:text-white">support@curravue.com</a>
+      </nav>
+
+      <p class="text-sm">© <span id="year"></span> Curravue. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuButton = document.getElementById("mobileMenuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    mobileMenuButton.addEventListener("click", () => {
+      const isOpen = !mobileMenu.classList.contains("hidden");
+      mobileMenu.classList.toggle("hidden");
+      mobileMenuButton.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
