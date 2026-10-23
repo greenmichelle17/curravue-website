@@ -1,0 +1,2153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Curravue provides educator-designed AI math prompt engines for K-12 teachers, college mathematics faculty, and instructional designers. Build structured lessons, guided reviews, and technology-supported learning activities.">
+  <title>Curravue | Math AI Workflows for Educators</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Curravue | Stop Writing Math Prompts from Scratch">
+  <meta property="og:description" content="Reusable AI workflows for K-12 and college mathematics educators. From standards-aligned lessons to interactive statistics reviews.">
+  <meta property="og:url" content="https://curravue.com/">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+          },
+          colors: {
+            ink: "#0B1020",
+            panel: "#111A30",
+            indigo: {
+              450: "#5865F2"
+            },
+            violet: {
+              450: "#9259F7"
+            }
+          },
+          boxShadow: {
+            glow: "0 20px 70px rgba(89,80,240,.22)"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --navy: #0b1020;
+      --panel: #111a30;
+      --indigo: #5865f2;
+      --violet: #9259f7;
+      --teal: #0d9488;
+      --muted: #64748b;
+      --line: #e2e8f0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+      color: #0f172a;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    :focus-visible {
+      outline: 3px solid #a78bfa;
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background: #c7d2fe;
+      color: #1e1b4b;
+    }
+
+    .container-custom {
+      width: min(100% - 40px, 1180px);
+      margin-inline: auto;
+    }
+
+    .gradient-text {
+      background: linear-gradient(105deg, #a5b4fc, #e9d5ff 65%, #99f6e4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gradient-dark {
+      background: linear-gradient(105deg, #4338ca, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-background {
+      background:
+        radial-gradient(ellipse at 83% 20%, rgba(99,102,241,.25), transparent 40%),
+        radial-gradient(ellipse at 15% 85%, rgba(139,92,246,.14), transparent 38%),
+        linear-gradient(135deg, #0b1020, #111a30 65%, #17143c);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image:
+        linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: .76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #4f46e5;
+    }
+
+    .section-label::before {
+      content: "";
+      height: 7px;
+      width: 7px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 750;
+      line-height: 1.3;
+      border-radius: 13px;
+      padding: 15px 22px;
+      min-height: 49px;
+      transition: transform .2s, background .2s, box-shadow .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: #5865f2;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(88,101,242,.25);
+    }
+
+    .btn-primary:hover {
+      background: #444ee4;
+      box-shadow: 0 14px 30px rgba(88,101,242,.33);
+    }
+
+    .btn-outline-light {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,.12);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: #312e81;
+      border: 1px solid #c7d2fe;
+    }
+
+    .btn-outline:hover {
+      background: #eef2ff;
+    }
+
+    .btn:disabled {
+      opacity: .5;
+      transform: none;
+    }
+
+    .nav-link {
+      color: #cbd5e1;
+      font-size: .92rem;
+      font-weight: 650;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+    }
+
+    .logo-symbol {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5865f2, #9259f7);
+      box-shadow: 0 5px 18px rgba(99,102,241,.26);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 74px;
+      left: 0;
+      right: 0;
+      max-height: calc(100dvh - 74px);
+      overflow-y: auto;
+      background: #10182b;
+      border-top: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      z-index: 45;
+      padding: 22px;
+    }
+
+    .mobile-menu[hidden] {
+      display: none;
+    }
+
+    .mockup-shell {
+      background: #101827;
+      border: 1px solid rgba(196,181,253,.2);
+      border-radius: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+
+    .mockup-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .8rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-dots span {
+      display: block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #475569;
+    }
+
+    .mockup-dots span:first-child { background: #fb7185; }
+    .mockup-dots span:nth-child(2) { background: #fbbf24; }
+    .mockup-dots span:nth-child(3) { background: #34d399; }
+
+    .audience-card,
+    .product-card {
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      border-radius: 24px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .audience-card:hover,
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 55px rgba(15,23,42,.09);
+      border-color: #a5b4fc;
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .product-card[hidden] {
+      display: none;
+    }
+
+    .product-top {
+      height: 165px;
+      padding: 22px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-top::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      transform: translate(90px,55px);
+    }
+
+    .product-top::before {
+      content: "";
+      position: absolute;
+      width: 145px;
+      height: 145px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      transform: translate(90px,55px);
+    }
+
+    .product-visual {
+      width: 100%;
+      max-width: 260px;
+      height: 112px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.11);
+      backdrop-filter: blur(8px);
+      border-radius: 14px;
+      padding: 15px;
+      color: white;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
+    }
+
+    .product-visual-line {
+      height: 6px;
+      background: rgba(255,255,255,.3);
+      border-radius: 10px;
+      margin-bottom: 9px;
+    }
+
+    .product-visual-line.short {
+      width: 52%;
+    }
+
+    .product-visual-line.medium {
+      width: 77%;
+    }
+
+    .product-visual-line.long {
+      width: 96%;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,.95);
+      color: #312e81;
+      padding: 6px 10px;
+      font-size: .64rem;
+      font-weight: 800;
+      border-radius: 999px;
+      z-index: 2;
+    }
+
+    .feature-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      line-height: 1.5;
+      color: #475569;
+      font-size: .91rem;
+    }
+
+    .feature-check i {
+      color: #4f46e5;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .compare-row:last-child {
+      border-bottom: 0;
+    }
+
+    .compare-cell {
+      padding: 20px 23px;
+    }
+
+    .compare-cell + .compare-cell {
+      border-left: 1px solid #e2e8f0;
+      background: #f5f3ff;
+    }
+
+    .faq-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 21px 24px;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      color: #0f172a;
+      font-weight: 750;
+      font-size: 1rem;
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      color: #6366f1;
+      transition: transform .28s ease;
+    }
+
+    .faq-question[aria-expanded="true"] .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows .32s ease, opacity .32s ease;
+    }
+
+    .faq-answer.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .faq-answer-inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .faq-answer-inner p {
+      padding: 0 24px 23px;
+      color: #475569;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .faq-answer-inner a {
+      color: #4338ca;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-link {
+      display: inline-block;
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color .2s;
+    }
+
+    .footer-link:hover {
+      color: #fff;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      background: #172033;
+      border: 1px solid #475569;
+      box-shadow: 0 18px 48px rgba(0,0,0,.3);
+      color: white;
+      padding: 17px 22px;
+      border-radius: 14px;
+      max-width: min(440px, calc(100% - 32px));
+      width: max-content;
+      font-size: .91rem;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 100;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s, visibility .25s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%,0);
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 12px;
+      top: -80px;
+      z-index: 200;
+      background: white;
+      color: #0f172a;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .container-custom {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .compare-cell {
+        padding: 15px 13px;
+        font-size: .86rem;
+      }
+
+      .hero-background::after {
+        opacity: .05;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans">
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAVIGATION -->
+<nav class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-[#0b1020]/95 backdrop-blur-xl" aria-label="Main navigation">
+  <div class="container-custom flex items-center justify-between gap-5 h-[74px]">
+    <a href="#home" class="flex items-center gap-3 text-white no-underline" aria-label="Curravue, back to home">
+      <span class="logo-symbol" aria-hidden="true">
+        <i class="fa-solid fa-square-root-variable text-lg"></i>
+      </span>
+
+      <span class="flex flex-col leading-tight">
+        <span class="font-extrabold tracking-tight text-xl">Curravue</span>
+        <span class="text-[10px] sm:text-[11px] tracking-wide text-slate-400 font-medium">MATH AI WORKFLOWS</span>
+      </span>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-9">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#products" class="nav-link">Products</a>
+      <a href="#why-curravue" class="nav-link">Why Curravue</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </div>
+
+    <div class="hidden lg:block">
+      <a href="https://whop.com/curravue/ai-powered-math-educator-playbook"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-primary text-sm">
+        Visit Our Whop Store
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <button id="mobile-menu-button"
+            type="button"
+            class="lg:hidden w-11 h-11 flex items-center justify-center text-white border border-white/20 rounded-xl"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu">
+      <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu lg:hidden" hidden>
+    <div class="flex flex-col gap-1">
+      <a href="#features" class="mobile-link text-white font-semibold rounded-lg px-4 py-3 hover:bg-white/10">Features</a>
+      <a href="#products" class="mobile-link text-white font-semibold rounded-lg px-4 py-3 hover:bg-white/10">Products</a>
+      <a href="#why-curravue" class="mobile-link text-white font-semibold rounded-lg px-4 py-3 hover:bg-white/10">Why Curravue</a>
+      <a href="#faq" class="mobile-link text-white font-semibold rounded-lg px-4 py-3 hover:bg-white/10">FAQ</a>
+      <a href="https://whop.com/curravue/ai-powered-math-educator-playbook"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-primary mt-3">
+        Visit Our Whop Store
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+
+  <!-- HERO -->
+  <section id="home" class="hero-background text-white pt-36 pb-24 md:pt-44 md:pb-32">
+    <div class="container-custom relative z-10 grid lg:grid-cols-[1.08fr_.92fr] items-center gap-14">
+
+      <div>
+        <div class="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full border border-indigo-300/20 bg-indigo-300/10 text-indigo-100 text-xs sm:text-sm font-semibold mb-7">
+          <i class="fa-solid fa-graduation-cap text-indigo-300" aria-hidden="true"></i>
+          Designed by a K-12 & College Math Educator
+        </div>
+
+        <h1 class="text-[clamp(2.35rem,4.9vw,4.4rem)] leading-[1.1] font-extrabold tracking-[-.045em] max-w-[760px]">
+          Stop writing math prompts from scratch.
+          <span class="gradient-text block mt-3">
+            Start teaching with better AI results.
+          </span>
+        </h1>
+
+        <p class="text-slate-200 text-lg md:text-xl leading-relaxed mt-7 max-w-[650px]">
+          Get classroom-ready equations, lesson architectures, and interactive review tools on the very first try with structured AI workflows designed for mathematics educators.
+        </p>
+
+        <p class="text-slate-400 mt-4 max-w-[620px] leading-relaxed">
+          Built for teachers who want accurate, step-by-step mathematics, consistent formatting, and less prompt rewriting. No prompt engineering experience required.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mt-9">
+          <a href="#products" class="btn btn-primary text-base">
+            Explore Math Prompt Engines
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+
+          <a href="#why-curravue" class="btn btn-outline-light text-base">
+            <i class="fa-solid fa-circle-play" aria-hidden="true"></i>
+            See the Difference
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-3 mt-10 text-sm text-slate-300">
+          <span><i class="fa-solid fa-check-circle text-teal-300 mr-2" aria-hidden="true"></i>Reusable Prompt Systems</span>
+          <span><i class="fa-solid fa-check-circle text-teal-300 mr-2" aria-hidden="true"></i>TEKS & Common Core</span>
+          <span><i class="fa-solid fa-check-circle text-teal-300 mr-2" aria-hidden="true"></i>College Math Workflows</span>
+        </div>
+      </div>
+
+      <!-- HERO VISUAL -->
+      <div class="relative" aria-label="Illustration comparing generic AI prompts with Curravue structured math workflows">
+        <div class="absolute -top-8 -right-5 h-48 w-48 rounded-full bg-violet-500/20 blur-3xl pointer-events-none"></div>
+
+        <div class="mockup-shell relative">
+          <div class="px-5 py-4 border-b border-slate-700/70 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="mockup-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="text-xs text-slate-400 font-mono truncate">math-workflow.preview</span>
+            </div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-indigo-300 bg-indigo-500/15 rounded px-2 py-1">
+              Example
+            </span>
+          </div>
+
+          <div class="p-5 sm:p-6 space-y-5">
+
+            <div class="rounded-xl border border-rose-400/20 bg-rose-500/5 p-4">
+              <div class="flex items-center gap-2 text-rose-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                Generic AI Prompt
+              </div>
+              <p class="font-mono text-sm text-slate-200">
+                "Make a statistics lesson about normal distributions."
+              </p>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="text-[11px] bg-rose-400/10 text-rose-200 rounded-md px-2 py-1">Missing steps</span>
+                <span class="text-[11px] bg-rose-400/10 text-rose-200 rounded-md px-2 py-1">Unverified math</span>
+                <span class="text-[11px] bg-rose-400/10 text-rose-200 rounded-md px-2 py-1">Manual revisions</span>
+              </div>
+            </div>
+
+            <div class="flex justify-center -my-1">
+              <div class="w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-200">
+                <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="rounded-xl border border-teal-400/30 bg-teal-500/5 p-4">
+              <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                <span class="flex items-center gap-2 text-teal-300 text-xs font-bold uppercase tracking-wider">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                  Curravue Math Engine
+                </span>
+                <span class="text-[10px] text-teal-200 bg-teal-500/15 px-2 py-1 rounded-full">
+                  Structured Workflow
+                </span>
+              </div>
+
+              <div class="mockup-code text-slate-200"><span class="text-violet-300">COURSE:</span> Elementary Statistics
+<span class="text-violet-300">TOPIC:</span> Normal Distribution
+<span class="text-violet-300">OBJECTIVE:</span> Interpret z-scores
+<span class="text-violet-300">FORMAT:</span> HTML + MathML
+<span class="text-violet-300">METHOD:</span> Explain → Model → Practice
+<span class="text-violet-300">VERIFY:</span> Calculations + Code</div>
+
+              <div class="mt-4 p-3 bg-slate-950/70 rounded-lg border border-slate-700">
+                <div class="flex items-center gap-2 text-xs text-indigo-200 mb-2">
+                  <i class="fa-solid fa-code" aria-hidden="true"></i>
+                  Sample output specification
+                </div>
+                <div class="mockup-code text-slate-300"><span class="text-indigo-300">&lt;math&gt;</span>
+  z = (x - μ) / σ
+<span class="text-indigo-300">&lt;/math&gt;</span>
+
+<span class="text-teal-300">✓</span> Define symbols
+<span class="text-teal-300">✓</span> Reveal one step at a time
+<span class="text-teal-300">✓</span> Check the final answer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-700/70 px-5 py-3 text-[11px] text-slate-400 flex items-center justify-between gap-3">
+            <span><i class="fa-solid fa-shield-halved text-teal-400 mr-1" aria-hidden="true"></i> Verification-focused workflows</span>
+            <span>CURRAVUE / MATH</span>
+          </div>
+        </div>
+
+        <div class="hidden sm:flex absolute -bottom-5 -left-7 items-center gap-3 px-4 py-3 bg-white text-slate-800 rounded-xl shadow-2xl border border-slate-100">
+          <span class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
+            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+          </span>
+          <span class="text-sm font-bold">From prompts to<br>structured instruction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="bg-slate-50 border-b border-slate-200">
+    <div class="container-custom py-6">
+      <p class="text-center text-xs uppercase tracking-[.18em] font-extrabold text-slate-500 mb-5">
+        Designed for the mathematics teaching workflow
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="text-sm font-semibold text-slate-700">
+          <i class="fa-solid fa-ruler-combined text-indigo-600 mr-2" aria-hidden="true"></i>Standards Alignment
+        </div>
+        <div class="text-sm font-semibold text-slate-700">
+          <i class="fa-solid fa-chart-line text-indigo-600 mr-2" aria-hidden="true"></i>Gateway Math Support
+        </div>
+        <div class="text-sm font-semibold text-slate-700">
+          <i class="fa-solid fa-square-root-variable text-indigo-600 mr-2" aria-hidden="true"></i>MathML & LaTeX
+        </div>
+        <div class="text-sm font-semibold text-slate-700">
+          <i class="fa-solid fa-universal-access text-indigo-600 mr-2" aria-hidden="true"></i>Accessible Design
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE ROUTING -->
+  <section id="audiences" class="py-24 bg-white">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="section-label">Find Your Workflow</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Different classrooms. <span class="gradient-dark">Smarter math workflows.</span>
+        </h2>
+        <p class="text-slate-600 text-lg leading-relaxed mt-5">
+          Whether you teach seventh-grade mathematics or college statistics, Curravue focuses on your instructional needs.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-7 mt-14">
+
+        <article class="audience-card p-8 md:p-10 flex flex-col">
+          <div class="flex justify-between items-start gap-4">
+            <div class="w-15 h-15 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center w-[62px] h-[62px] text-2xl">
+              <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 text-xs font-bold">K-12 PATHWAY</span>
+          </div>
+
+          <h3 class="text-2xl font-extrabold mt-7">For K-12 Educators</h3>
+          <p class="text-slate-600 mt-3 leading-relaxed">
+            Spend less time translating standards into lessons. Build meaningful instruction around what students need to learn next.
+          </p>
+
+          <div class="mt-7 space-y-4 flex-1">
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">TEKS & Common Core:</strong> Map activities, examples, and assessments to selected math standards.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Progressive scaffolding:</strong> Build teacher modeling, guided practice, and independent work.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Hands-on engagement:</strong> Generate station rotations, error-analysis tasks, and student discussions.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Formative checkpoints:</strong> Identify misconceptions before the unit assessment.</span>
+            </div>
+          </div>
+
+          <a href="#products" data-select-audience="k12" class="btn btn-outline mt-9">
+            Explore K-12 Math Engines
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </article>
+
+        <article class="audience-card p-8 md:p-10 flex flex-col">
+          <div class="flex justify-between items-start gap-4">
+            <div class="w-[62px] h-[62px] rounded-2xl bg-violet-100 text-violet-700 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-violet-50 text-violet-800 text-xs font-bold">HIGHER ED PATHWAY</span>
+          </div>
+
+          <h3 class="text-2xl font-extrabold mt-7">For Higher Ed & Gateway Math Faculty</h3>
+          <p class="text-slate-600 mt-3 leading-relaxed">
+            Create technology-supported learning experiences designed to address prerequisite gaps, strengthen student persistence, and support course completion.
+          </p>
+
+          <div class="mt-7 space-y-4 flex-1">
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Passage rate improvement:</strong> Plan targeted interventions for students at risk of unsuccessful course completion.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Gateway course scaffolding:</strong> Organize College Algebra and Statistics into manageable learning sequences.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">DFW reduction planning:</strong> Develop prerequisite diagnostics, remediation, and progress checkpoints.</span>
+            </div>
+            <div class="feature-check">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <span><strong class="text-slate-900">Instructional design:</strong> Incorporate Community of Inquiry principles and asynchronous learning activities.</span>
+            </div>
+          </div>
+
+          <a href="#products" data-select-audience="college" class="btn btn-outline mt-9">
+            Explore College Math Engines
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-24 bg-slate-50 border-y border-slate-200">
+    <div class="container-custom">
+      <div class="max-w-3xl">
+        <span class="section-label">What Makes Curravue Different</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Less guesswork.<br>
+          <span class="gradient-dark">More instructional structure.</span>
+        </h2>
+        <p class="text-slate-600 text-lg leading-relaxed mt-5">
+          Every math engine follows a defined instructional workflow. Your subject, objectives, output format, and verification requirements guide the result.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-list-ol" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">Step-by-Step Mathematics</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Request complete mathematical reasoning, defined variables, intermediate calculations, and answer checks.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-violet-100 text-violet-700 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-code" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">Interactive Learning Assets</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Generate specifications for HTML, JavaScript, MathML, guided problem reveals, and interactive review activities.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">Standards & Outcomes</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Connect learning objectives, instructional activities, assessment items, and academic standards.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-brain" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">Cognitive Load Awareness</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Introduce one transformation at a time. Separate explanations, worked examples, guided practice, and independent tasks.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">Misconception Analysis</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Create diagnostic questions, common-error examples, corrective feedback, and focused practice.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-7">
+          <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-700 grid place-items-center text-xl mb-6">
+            <i class="fa-solid fa-laptop-file" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-extrabold text-lg">LMS-Oriented Design</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Structure content for D2L, Canvas, Blackboard, and other learning environments, subject to LMS compatibility checks.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="py-24 bg-white">
+    <div class="container-custom">
+
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="section-label">The Math Collection</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Choose your <span class="gradient-dark">Math Prompt Engine.</span>
+        </h2>
+        <p class="text-slate-600 text-lg leading-relaxed mt-5">
+          Specialized systems for planning lessons, supporting gateway course success, and creating detailed mathematics reviews.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-9 mb-11" role="group" aria-label="Filter math products">
+        <button type="button" class="product-filter px-5 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-bold border border-indigo-600" data-filter="all" aria-pressed="true">
+          All Math Engines
+        </button>
+        <button type="button" class="product-filter px-5 py-2.5 rounded-full bg-white text-slate-700 text-sm font-bold border border-slate-200 hover:border-indigo-400" data-filter="k12" aria-pressed="false">
+          K-12 Mathematics
+        </button>
+        <button type="button" class="product-filter px-5 py-2.5 rounded-full bg-white text-slate-700 text-sm font-bold border border-slate-200 hover:border-indigo-400" data-filter="college" aria-pressed="false">
+          College Mathematics
+        </button>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7" id="product-grid">
+
+        <!-- PRODUCT ONE -->
+        <article class="product-card" data-audience="k12">
+          <div class="product-top" style="background:linear-gradient(135deg,#3730a3,#6366f1)">
+            <span class="product-badge">K-12 ESSENTIAL</span>
+            <div class="product-visual">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-ruler-combined text-indigo-100" aria-hidden="true"></i>
+                <span class="text-xs font-bold">Standards Alignment</span>
+              </div>
+              <div class="product-visual-line long"></div>
+              <div class="product-visual-line medium"></div>
+              <div class="product-visual-line short"></div>
+              <span class="absolute bottom-3 right-3 text-xs font-bold bg-white/20 rounded px-2 py-1">
+                TEKS ✓
+              </span>
+            </div>
+          </div>
+
+          <div class="p-7 flex flex-col flex-1">
+            <span class="text-xs tracking-widest font-extrabold text-indigo-600 uppercase">
+              Standards-Based Instruction
+            </span>
+
+            <h3 class="text-xl font-extrabold leading-snug mt-3">
+              K-12 Texas Standards (TEKS) Alignment System
+            </h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed mt-4">
+              Transform Texas mathematics standards into organized lessons, visual models, differentiated activities, and assessments aligned to learning objectives.
+            </p>
+
+            <div class="border-t border-slate-100 mt-6 pt-6 space-y-4 flex-1">
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                TEKS-based lesson sequencing
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Teacher modeling and guided practice
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Interactive stations and differentiated tasks
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Exit tickets and formative checkpoints
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 mt-7 pt-6">
+              <div class="flex items-end justify-between gap-3 mb-5">
+                <div>
+                  <span class="text-3xl font-extrabold tracking-tight">$19.99</span>
+                  <div class="text-xs text-slate-500 mt-1">Proposed one-time digital price</div>
+                </div>
+                <span class="text-[11px] bg-amber-50 text-amber-800 font-bold rounded-full px-3 py-1.5">
+                  Coming Soon
+                </span>
+              </div>
+
+              <button type="button"
+                      class="btn btn-primary w-full checkout-placeholder"
+                      data-product="K-12 Texas Standards (TEKS) Alignment System"
+                      data-checkout-url=""
+                      aria-label="Check launch status for TEKS Alignment System">
+                Check Availability
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT TWO -->
+        <article class="product-card" data-audience="college">
+          <div class="product-top" style="background:linear-gradient(135deg,#581c87,#8b5cf6)">
+            <span class="product-badge">HIGHER ED</span>
+            <div class="product-visual">
+              <div class="flex items-center gap-2 mb-3">
+                <i class="fa-solid fa-chart-line text-violet-100" aria-hidden="true"></i>
+                <span class="text-xs font-bold">Gateway Math Planning</span>
+              </div>
+
+              <div class="flex items-end gap-3 h-[55px] px-2">
+                <div class="bg-white/25 rounded-t w-7 h-[45%]"></div>
+                <div class="bg-white/35 rounded-t w-7 h-[65%]"></div>
+                <div class="bg-white/55 rounded-t w-7 h-[80%]"></div>
+                <div class="bg-white/80 rounded-t w-7 h-[95%]"></div>
+                <span class="ml-auto text-xs text-white font-semibold self-center">
+                  Plan<br>Monitor<br>Respond
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-7 flex flex-col flex-1">
+            <span class="text-xs tracking-widest font-extrabold text-violet-700 uppercase">
+              College Student Success
+            </span>
+
+            <h3 class="text-xl font-extrabold leading-snug mt-3">
+              College Gateway Math Passage Rate Accelerator
+            </h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed mt-4">
+              Design targeted interventions to support student persistence in College Algebra and Elementary Statistics through scaffolded instruction and learning analytics planning.
+            </p>
+
+            <div class="border-t border-slate-100 mt-6 pt-6 space-y-4 flex-1">
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Prerequisite diagnostics and skill-gap analysis
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                DFW reduction intervention planning
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Asynchronous micro-workshop design
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Community of Inquiry aligned activities
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 mt-7 pt-6">
+              <div class="flex items-end justify-between gap-3 mb-5">
+                <div>
+                  <span class="text-3xl font-extrabold tracking-tight">$29.99</span>
+                  <div class="text-xs text-slate-500 mt-1">Proposed one-time digital price</div>
+                </div>
+                <span class="text-[11px] bg-amber-50 text-amber-800 font-bold rounded-full px-3 py-1.5">
+                  Coming Soon
+                </span>
+              </div>
+
+              <button type="button"
+                      class="btn btn-primary w-full checkout-placeholder"
+                      data-product="College Gateway Math Passage Rate Accelerator"
+                      data-checkout-url=""
+                      aria-label="Check launch status for Gateway Math Accelerator">
+                Check Availability
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRODUCT THREE -->
+        <article class="product-card" data-audience="k12 college">
+          <div class="product-top" style="background:linear-gradient(135deg,#0f766e,#2563eb)">
+            <span class="product-badge">ALL MATH EDUCATORS</span>
+
+            <div class="product-visual">
+              <div class="flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-code text-teal-100" aria-hidden="true"></i>
+                <span class="text-xs font-bold">Interactive Math Review</span>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="font-mono text-xl font-bold text-white">
+                  z = <span class="text-teal-200">x − μ</span>
+                  <div class="w-[53px] ml-[48px] border-t border-white/70 text-center text-sm">σ</div>
+                </div>
+                <div class="ml-auto text-right">
+                  <div class="text-[10px] text-teal-100">HTML</div>
+                  <div class="text-[10px] text-teal-100">MathML</div>
+                  <div class="text-[10px] text-teal-100">JavaScript</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-7 flex flex-col flex-1">
+            <span class="text-xs tracking-widest font-extrabold text-teal-700 uppercase">
+              Interactive Math & Technology
+            </span>
+
+            <h3 class="text-xl font-extrabold leading-snug mt-3">
+              Step-by-Step Math Review & Tech Suite
+            </h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed mt-4">
+              Build detailed mathematics reviews, calculation walkthroughs, and interactive instructional assets using structured prompts for mathematical notation and technology tools.
+            </p>
+
+            <div class="border-t border-slate-100 mt-6 pt-6 space-y-4 flex-1">
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Step-by-step solution and verification workflows
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                HTML, JavaScript, MathML, and LaTeX output
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                TI-84 and Excel guided calculations
+              </div>
+              <div class="feature-check">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                Interactive review slides and graphing tasks
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 mt-7 pt-6">
+              <div class="flex items-end justify-between gap-3 mb-5">
+                <div>
+                  <span class="text-3xl font-extrabold tracking-tight">$24.99</span>
+                  <div class="text-xs text-slate-500 mt-1">Proposed one-time digital price</div>
+                </div>
+                <span class="text-[11px] bg-amber-50 text-amber-800 font-bold rounded-full px-3 py-1.5">
+                  Coming Soon
+                </span>
+              </div>
+
+              <button type="button"
+                      class="btn btn-primary w-full checkout-placeholder"
+                      data-product="Step-by-Step Math Review & Tech Suite"
+                      data-checkout-url=""
+                      aria-label="Check launch status for Math Review and Tech Suite">
+                Check Availability
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p id="filter-status" role="status" aria-live="polite" class="text-center text-sm text-slate-500 mt-7">
+        Showing all 3 math engines.
+      </p>
+
+      <!-- EXISTING CATALOG -->
+      <div class="mt-16 rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-violet-50 p-7 md:p-10">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-7">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 text-indigo-700 font-extrabold text-xs uppercase tracking-widest">
+              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+              Existing Curravue Collection
+            </div>
+            <h3 class="text-2xl font-extrabold mt-3">Explore Our Established AI Educator Tools</h3>
+            <p class="text-slate-600 leading-relaxed mt-3">
+              Browse the AI-Powered Math Educator Playbook, Lesson Architecture Engine, and Formative Checkpoint Intelligence in the Curravue Whop collection.
+            </p>
+          </div>
+
+          <a href="https://whop.com/curravue/ai-powered-math-educator-playbook"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-primary shrink-0">
+            View Existing Products
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-7">
+          <a class="text-sm font-semibold text-indigo-800 bg-white border border-indigo-100 hover:border-indigo-300 rounded-full px-4 py-2 no-underline"
+             href="https://whop.com/curravue/lesson-architecture-engine/"
+             target="_blank" rel="noopener noreferrer">
+            Lesson Architecture Engine
+            <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]" aria-hidden="true"></i>
+          </a>
+
+          <a class="text-sm font-semibold text-indigo-800 bg-white border border-indigo-100 hover:border-indigo-300 rounded-full px-4 py-2 no-underline"
+             href="https://whop.com/curravue/formative-checkpoint-intelligence/"
+             target="_blank" rel="noopener noreferrer">
+            Formative Checkpoint Intelligence
+            <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section id="why-curravue" class="py-24 bg-slate-50 border-y border-slate-200">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="section-label">Why Structured Prompts Matter</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Generic prompts leave gaps.<br>
+          <span class="gradient-dark">Curravue gives direction.</span>
+        </h2>
+        <p class="text-slate-600 text-lg leading-relaxed mt-5">
+          A useful mathematical learning asset requires more than a topic. Curravue provides a defined sequence of instructional requirements and quality checks.
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto mt-12 bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
+
+        <div class="compare-row">
+          <div class="compare-cell bg-slate-100">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-xl" aria-hidden="true"></i>
+              <h3 class="text-base md:text-xl font-extrabold">Generic 1-Line Prompts</h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Unstructured requests</p>
+          </div>
+          <div class="compare-cell !bg-indigo-100">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-circle-check text-indigo-700 text-xl" aria-hidden="true"></i>
+              <h3 class="text-base md:text-xl font-extrabold">Curravue Prompt Engines</h3>
+            </div>
+            <p class="text-xs text-indigo-700 mt-2">Purpose-built instructional workflows</p>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong class="block text-sm text-slate-800 mb-2">Mathematical Accuracy</strong>
+            <p class="text-slate-600 text-sm leading-relaxed">AI calculations are presented without defined verification steps.</p>
+          </div>
+          <div class="compare-cell">
+            <strong class="block text-sm text-indigo-900 mb-2">Defined Verification</strong>
+            <p class="text-slate-700 text-sm leading-relaxed">Prompts require intermediate calculations, alternate checks, and review of final results.</p>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong class="block text-sm text-slate-800 mb-2">Equation Formatting</strong>
+            <p class="text-slate-600 text-sm leading-relaxed">Malformed notation, inconsistent symbols, or incomplete equations.</p>
+          </div>
+          <div class="compare-cell">
+            <strong class="block text-sm text-indigo-900 mb-2">Structured Math Syntax</strong>
+            <p class="text-slate-700 text-sm leading-relaxed">Explicit MathML and LaTeX requirements with formatting and symbol consistency checks.</p>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong class="block text-sm text-slate-800 mb-2">Instructional Sequence</strong>
+            <p class="text-slate-600 text-sm leading-relaxed">Explanations skip prerequisite concepts and intermediate steps.</p>
+          </div>
+          <div class="compare-cell">
+            <strong class="block text-sm text-indigo-900 mb-2">Intentional Scaffolding</strong>
+            <p class="text-slate-700 text-sm leading-relaxed">Structured modeling, guided examples, independent practice, and gradual release.</p>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong class="block text-sm text-slate-800 mb-2">Error Correction</strong>
+            <p class="text-slate-600 text-sm leading-relaxed">Educators repeatedly rewrite prompts to fix unclear results.</p>
+          </div>
+          <div class="compare-cell">
+            <strong class="block text-sm text-indigo-900 mb-2">Error-Analysis Checkpoints</strong>
+            <p class="text-slate-700 text-sm leading-relaxed">Prompts include misconception checks, corrective feedback, and targeted revisions.</p>
+          </div>
+        </div>
+
+        <div class="compare-row">
+          <div class="compare-cell">
+            <strong class="block text-sm text-slate-800 mb-2">Student Engagement</strong>
+            <p class="text-slate-600 text-sm leading-relaxed">Static content with limited participation or feedback.</p>
+          </div>
+          <div class="compare-cell">
+            <strong class="block text-sm text-indigo-900 mb-2">Active Learning Design</strong>
+            <p class="text-slate-700 text-sm leading-relaxed">Interactive reviews, formative checkpoints, and structured opportunities to practice.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center max-w-3xl mx-auto text-slate-500 text-sm leading-relaxed mt-7">
+        AI systems still make mistakes. Curravue emphasizes repeatable workflows and educator verification rather than guaranteeing error-free results.
+      </p>
+    </div>
+  </section>
+
+  <!-- PEDAGOGICAL AUTHORITY -->
+  <section class="py-24 bg-white" id="expertise">
+    <div class="container-custom grid lg:grid-cols-2 gap-14 items-center">
+
+      <div>
+        <span class="section-label">Subject Expertise Meets Instructional Design</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mt-4">
+          Created with the <span class="gradient-dark">mathematics classroom</span> in mind.
+        </h2>
+
+        <p class="text-slate-600 text-lg leading-relaxed mt-6">
+          Curravue is informed by experience teaching K-12 and college mathematics, graduate-level study in mathematics education, and professional instructional design practice in higher education.
+        </p>
+
+        <p class="text-slate-600 leading-relaxed mt-4">
+          The systems focus on challenges mathematics educators recognize: prerequisite gaps, limited preparation time, misunderstood procedures, course completion barriers, and the need for accessible learning materials.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          <span class="bg-indigo-50 text-indigo-900 rounded-full px-4 py-2 text-sm font-semibold">
+            Mathematics Education
+          </span>
+          <span class="bg-violet-50 text-violet-900 rounded-full px-4 py-2 text-sm font-semibold">
+            Higher Ed Instructional Design
+          </span>
+          <span class="bg-teal-50 text-teal-900 rounded-full px-4 py-2 text-sm font-semibold">
+            Technology Integration
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-[#111a30] text-white rounded-3xl p-7 sm:p-10 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none"></div>
+
+        <h3 class="font-extrabold text-xl relative z-10 mb-7">
+          The Curravue Instructional Blueprint
+        </h3>
+
+        <div class="space-y-5 relative z-10">
+          <div class="flex gap-4 items-start">
+            <div class="w-11 h-11 rounded-xl bg-indigo-500/20 text-indigo-200 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">Progressive Scaffolding</h4>
+              <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                Break complex mathematical procedures into meaningful, manageable steps.
+              </p>
+            </div>
+          </div>
+
+          <div class="h-px bg-white/10"></div>
+
+          <div class="flex gap-4 items-start">
+            <div class="w-11 h-11 rounded-xl bg-violet-500/20 text-violet-200 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">Community of Inquiry</h4>
+              <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                Support teaching, social, and cognitive presence through purposeful online learning activities.
+              </p>
+            </div>
+          </div>
+
+          <div class="h-px bg-white/10"></div>
+
+          <div class="flex gap-4 items-start">
+            <div class="w-11 h-11 rounded-xl bg-teal-500/20 text-teal-200 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">Formative Assessment</h4>
+              <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                Diagnose misconceptions and provide targeted feedback throughout instruction.
+              </p>
+            </div>
+          </div>
+
+          <div class="h-px bg-white/10"></div>
+
+          <div class="flex gap-4 items-start">
+            <div class="w-11 h-11 rounded-xl bg-sky-500/20 text-sky-200 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">Accessibility & Flexible Learning</h4>
+              <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                Provide clear structure, readable content, and multiple approaches to learning activities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-24 bg-slate-50 border-y border-slate-200">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="section-label">Simple by Design</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Three steps to a better starting point.
+        </h2>
+        <p class="text-lg text-slate-600 mt-5">
+          Curravue turns an open-ended AI request into a repeatable teaching workflow.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-7 mt-12">
+        <div class="bg-white border border-slate-200 rounded-2xl p-8">
+          <span class="text-5xl font-black text-indigo-200">01</span>
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 grid place-items-center mt-5 mb-5">
+            <i class="fa-solid fa-compass text-xl" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-extrabold">Choose Your Engine</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Select a system aligned to your instructional goal, such as lesson planning, student intervention, or interactive review.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-8">
+          <span class="text-5xl font-black text-violet-200">02</span>
+          <div class="w-12 h-12 rounded-xl bg-violet-100 text-violet-700 grid place-items-center mt-5 mb-5">
+            <i class="fa-solid fa-sliders text-xl" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-extrabold">Enter Your Requirements</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Specify your course, grade level, standard, learning objectives, and desired output format.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-8">
+          <span class="text-5xl font-black text-teal-200">03</span>
+          <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 grid place-items-center mt-5 mb-5">
+            <i class="fa-solid fa-laptop-code text-xl" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-xl font-extrabold">Generate, Review, Teach</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mt-3">
+            Run the structured prompt in your AI tool, check mathematical accuracy and accessibility, then adapt the output for your learners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 bg-white">
+    <div class="container-custom max-w-4xl">
+
+      <div class="text-center">
+        <span class="section-label">Frequently Asked Questions</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">
+          Questions? <span class="gradient-dark">Start here.</span>
+        </h2>
+        <p class="text-slate-600 mt-5 text-lg">
+          Clear answers about compatibility, mathematics, digital access, and institutional use.
+        </p>
+      </div>
+
+      <div class="space-y-4 mt-12" id="faq-list">
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
+              <span>Do I need a paid ChatGPT account?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1">
+            <div class="faq-answer-inner">
+              <p>
+                A paid ChatGPT subscription is not automatically required. Curravue provides structured prompts for use with compatible AI language models. Free plans often support basic prompt workflows, while long outputs, complex coding tasks, and advanced models might require additional access or encounter usage limits. AI subscriptions are separate from Curravue digital product purchases.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+              <span>Will these engines work with different AI platforms?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2">
+            <div class="faq-answer-inner">
+              <p>
+                Curravue prompts are designed around natural-language instructions rather than a single AI vendor. You should be able to adapt many workflows for ChatGPT, Claude, Gemini, and other capable language models. Results and advanced features differ across providers. Each model's context limits, coding abilities, and output formats influence performance.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+              <span>Will Curravue produce error-free mathematics every time?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3">
+            <div class="faq-answer-inner">
+              <p>
+                No AI system guarantees error-free mathematics. Curravue addresses common failure points by requiring structured reasoning, intermediate calculations, formula definitions, and verification instructions. You retain responsibility for reviewing the mathematics, checking the results, and testing learning materials before student use.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+              <span>Do the engines support LaTeX, MathML, graphing, and calculators?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-question-4">
+            <div class="faq-answer-inner">
+              <p>
+                The Math Review & Tech Suite focuses on structured requests for LaTeX, MathML, HTML, JavaScript, mathematical graphs, TI-84 calculator procedures, and Excel calculations. These workflows specify mathematical notation, step order, technology instructions, and validation checkpoints. Browser compatibility, source code, device-specific procedures, and numerical results still require testing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
+              <span>Are these products suitable for College Algebra and Elementary Statistics?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-question-5">
+            <div class="faq-answer-inner">
+              <p>
+                Yes. The proposed Gateway Math Accelerator and Math Review Suite focus on introductory college mathematics. Example applications include prerequisite diagnostic activities, factoring reviews, probability, normal distributions, confidence intervals, hypothesis testing, and interactive exam preparation. The Gateway Accelerator also emphasizes instructional interventions intended to support student persistence and successful course completion.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
+              <span>Will generated materials work in D2L, Canvas, or Blackboard?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-question-6">
+            <div class="faq-answer-inner">
+              <p>
+                Many text-based instructional materials are suitable for adaptation to major learning management systems. Interactive HTML and JavaScript assets need additional compatibility, security, and accessibility checks. The LMS or institution might restrict scripts, embedded content, or file hosting. Curravue provides instructional workflows rather than direct LMS installation or guaranteed integration.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-7" id="faq-question-7">
+              <span>How do institutional and department licenses work?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-7" role="region" aria-labelledby="faq-question-7">
+            <div class="faq-answer-inner">
+              <p>
+                Institutional access and multi-user licensing are handled through direct inquiries. Department chairs, instructional design teams, school districts, and faculty development offices should contact <a href="mailto:support@curravue.com?subject=Curravue%20Institutional%20Licensing">support@curravue.com</a> to discuss the number of educators, intended use, and licensing requirements. Group pricing and terms are subject to a separate agreement.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-8" id="faq-question-8">
+              <span>How will I receive a digital product after purchase?</span>
+              <i class="fa-solid fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-answer-8" role="region" aria-labelledby="faq-question-8">
+            <div class="faq-answer-inner">
+              <p>
+                Curravue uses Whop for its digital commerce workflow. For a published product, follow the checkout instructions and access details displayed on its Whop product page. The three new mathematics systems shown here are proposed additions and are not presented as currently available for purchase. Contact support for product availability questions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-slate-600 mb-4">Need help selecting a product or discussing department access?</p>
+        <a href="mailto:support@curravue.com?subject=Curravue%20Product%20Inquiry" class="btn btn-outline">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          Contact Curravue Support
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-20 bg-white">
+    <div class="container-custom">
+      <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-br from-[#1b2372] via-[#4034a0] to-[#692db0] px-7 py-16 md:px-16 md:py-20 text-white text-center">
+        <div class="absolute left-[-90px] top-[-90px] h-64 w-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute right-[-70px] bottom-[-100px] h-72 w-72 rounded-full bg-indigo-200/10 blur-2xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-2 text-sm font-bold text-indigo-100 mb-7">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+            A Smarter Starting Point for Math Educators
+          </div>
+
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            Spend your time teaching math.<br>
+            Not rebuilding AI prompts.
+          </h2>
+
+          <p class="text-indigo-100 text-lg leading-relaxed mt-6 max-w-2xl mx-auto">
+            Get structured, reusable workflows for mathematics instruction, review, assessment, and technology integration.
+          </p>
+
+          <div class="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#products" class="btn bg-white text-indigo-900 hover:bg-indigo-50">
+              Explore the Math Collection
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+
+            <a href="https://whop.com/curravue/ai-powered-math-educator-playbook"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-outline-light">
+              Browse Existing Products
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <p class="text-sm text-indigo-200 mt-8">
+            Educator-designed workflows. AI subscriptions sold separately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#0b1020] text-white pt-17 pb-8 border-t border-white/10">
+  <div class="container-custom">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
+
+      <div class="lg:col-span-2">
+        <a href="#home" class="inline-flex items-center gap-3 text-white no-underline">
+          <span class="logo-symbol" aria-hidden="true">
+            <i class="fa-solid fa-square-root-variable" aria-hidden="true"></i>
+          </span>
+          <span>
+            <span class="block text-xl font-extrabold">Curravue</span>
+            <span class="block text-[11px] tracking-wider text-slate-400">MATH AI WORKFLOWS</span>
+          </span>
+        </a>
+
+        <p class="text-slate-400 text-sm leading-relaxed mt-6 max-w-md">
+          Built for educators who want better AI results without becoming AI experts. Specialized math prompt workflows informed by K-12 teaching, college mathematics, and instructional design.
+        </p>
+
+        <a href="mailto:support@curravue.com"
+           class="inline-flex items-center gap-3 text-indigo-200 hover:text-white font-semibold text-sm mt-6 break-all">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          support@curravue.com
+        </a>
+      </div>
+
+      <div>
+        <h3 class="font-extrabold mb-5">Explore</h3>
+        <div class="flex flex-col items-start gap-2 text-sm">
+          <a href="#features" class="footer-link">Features</a>
+          <a href="#audiences" class="footer-link">For Educators</a>
+          <a href="#products" class="footer-link">Math Prompt Engines</a>
+          <a href="#why-curravue" class="footer-link">Why Curravue</a>
+          <a href="#faq" class="footer-link">Frequently Asked Questions</a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-extrabold mb-5">Support & Legal</h3>
+        <div class="flex flex-col items-start gap-2 text-sm">
+          <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="/terms.html" class="footer-link">Terms of Service</a>
+          <a href="/digital-products.html" class="footer-link">Digital Product Policy</a>
+          <a href="mailto:support@curravue.com?subject=Curravue%20Support" class="footer-link">Contact Support</a>
+          <a href="mailto:support@curravue.com?subject=Institutional%20Licensing" class="footer-link">Institutional Licensing</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10 pt-7 pb-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+      <p class="text-xs text-slate-400">
+        &copy; <span id="copyright-year">2026</span> Curravue. All rights reserved.
+      </p>
+
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-400">
+        <span><i class="fa-solid fa-lock mr-1 text-indigo-300" aria-hidden="true"></i> Whop Digital Commerce</span>
+        <span><i class="fa-solid fa-cloud mr-1 text-indigo-300" aria-hidden="true"></i> Static Web Hosting</span>
+        <span><i class="fa-solid fa-universal-access mr-1 text-indigo-300" aria-hidden="true"></i> Accessibility-Conscious Design</span>
+      </div>
+    </div>
+
+    <div class="pt-3">
+      <p class="text-[11px] leading-relaxed text-slate-500 max-w-5xl">
+        Curravue products are independent educational resources. AI-generated mathematical calculations, equations, code, and learning materials should be checked for accuracy and accessibility before use. Product descriptions explain intended workflows and do not guarantee student outcomes, passage rate increases, or reductions in DFW rates. Curravue is not affiliated with OpenAI, Anthropic, Google, Texas Education Agency, or any learning management system provider.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT AVAILABILITY DIALOG -->
+<dialog id="availability-dialog"
+        class="w-[min(94vw,480px)] rounded-3xl p-0 shadow-2xl backdrop:bg-[#0b1020]/75 border border-slate-200"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description">
+  <div class="p-7 sm:p-9 relative">
+    <button type="button"
+            id="close-dialog"
+            class="absolute top-5 right-5 w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200"
+            aria-label="Close product availability dialog">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-700 text-2xl grid place-items-center mb-6">
+      <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
+    </div>
+
+    <h2 id="dialog-title" class="text-2xl font-extrabold text-slate-900">
+      Product Launch Pending
+    </h2>
+
+    <p id="dialog-product" class="font-bold text-indigo-700 mt-4"></p>
+
+    <p id="dialog-description" class="text-slate-600 leading-relaxed mt-4">
+      This specialized Math Prompt Engine is part of the proposed Curravue collection. A live checkout link has not been assigned yet.
+    </p>
+
+    <div class="flex flex-col gap-3 mt-7">
+      <a id="availability-email"
+         href="mailto:support@curravue.com?subject=Math%20Engine%20Availability"
+         class="btn btn-primary">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        Ask About Availability
+      </a>
+
+      <a href="https://whop.com/curravue/ai-powered-math-educator-playbook"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="btn btn-outline"
+         id="existing-products-link">
+        Browse Existing Products
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<!-- LIVE ANNOUNCEMENTS -->
+<div id="site-toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  const menuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon = document.getElementById("mobile-menu-icon");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  function closeMobileMenu() {
+    mobileMenu.hidden = true;
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation menu");
+    menuIcon.classList.remove("fa-xmark");
+    menuIcon.classList.add("fa-bars");
+    document.body.classList.remove("menu-open");
+  }
+
+  function openMobileMenu() {
+    mobileMenu.hidden = false;
+    menuButton.setAttribute("aria-expanded", "true");
+    menuButton.setAttribute("aria-label", "Close navigation menu");
+    menuIcon.classList.remove("fa-bars");
+    menuIcon.classList.add("fa-xmark");
+    document.body.classList.add("menu-open");
+  }
+
+  menuButton.addEventListener("click", function () {
+    const expanded = menuButton.getAttribute("aria-expanded") === "true";
+
+    if (expanded) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  mobileLinks.forEach(function (link) {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !mobileMenu.hidden) {
+      closeMobileMenu();
+      menuButton.focus();
+    }
+  });
+
+  document.addEventListener("click", function (event) {
+    if (
+      !mobileMenu.hidden &&
+      !mobileMenu.contains(event.target) &&
+      !menuButton.contains(event.target)
+    ) {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth >= 1024 && !mobileMenu.hidden) {
+      closeMobileMenu();
+    }
+  });
+
+  // PRODUCT FILTERING
+  const filterButtons = document.querySelectorAll(".product-filter");
+  const productCards = document.querySelectorAll(".product-card");
+  const filterStatus = document.getElementById("filter-status");
+
+  function setProductFilter(filter) {
+    let visibleCount = 0;
+
+    filterButtons.forEach(function (button) {
+      const selected = button.dataset.filter === filter;
+
+      button.setAttribute("aria-pressed", String(selected));
+
+      button.classList.toggle("bg-indigo-600", selected);
+      button.classList.toggle("text-white", selected);
+      button.classList.toggle("border-indigo-600", selected);
+
+      button.classList.toggle("bg-white", !selected);
+      button.classList.toggle("text-slate-700", !selected);
+      button.classList.toggle("border-slate-200", !selected);
+    });
+
+    productCards.forEach(function (card) {
+      const audiences = card.dataset.audience.split(" ");
+      const show = filter === "all" || audiences.includes(filter);
+
+      card.hidden = !show;
+
+      if (show) visibleCount++;
+    });
+
+    const audienceName =
+      filter === "k12" ? "K-12" :
+      filter === "college" ? "college" :
+      "all";
+
+    filterStatus.textContent =
+      "Showing " +
+      (filter === "all" ? "all " : "") +
+      visibleCount +
+      " " +
+      audienceName +
+      " math engine" +
+      (visibleCount === 1 ? "." : "s.");
+  }
+
+  filterButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      setProductFilter(button.dataset.filter);
+    });
+  });
+
+  document.querySelectorAll("[data-select-audience]").forEach(function (link) {
+    link.addEventListener("click", function () {
+      setProductFilter(link.dataset.selectAudience);
+    });
+  });
+
+  // ACCESSIBLE FAQ ACCORDION
+  const faqQuestions = document.querySelectorAll(".faq-question");
+
+  function closeFAQ(question) {
+    const panel = document.getElementById(
+      question.getAttribute("aria-controls")
+    );
+
+    question.setAttribute("aria-expanded", "false");
+    panel.classList.remove("open");
+    panel.setAttribute("inert", "");
+  }
+
+  function openFAQ(question) {
+    const panel = document.getElementById(
+      question.getAttribute("aria-controls")
+    );
+
+    question.setAttribute("aria-expanded", "true");
+    panel.classList.add("open");
+    panel.removeAttribute("inert");
+  }
+
+  faqQuestions.forEach(function (question) {
+    const panel = document.getElementById(
+      question.getAttribute("aria-controls")
+    );
+
+    panel.setAttribute("inert", "");
+
+    question.addEventListener("click", function () {
+      const isExpanded = question.getAttribute("aria-expanded") === "true";
+
+      faqQuestions.forEach(closeFAQ);
+
+      if (!isExpanded) {
+        openFAQ(question);
+      }
+    });
+  });
+
+  // PRODUCT AVAILABILITY AND CHECKOUT
+  // When a Whop checkout URL is assigned to a product,
+  // add it to the product button's data-checkout-url attribute.
+  // The current design avoids sending buyers to invented URLs.
+
+  const dialog = document.getElementById("availability-dialog");
+  const closeDialogButton = document.getElementById("close-dialog");
+  const dialogProduct = document.getElementById("dialog-product");
+  const availabilityEmail = document.getElementById("availability-email");
+  const toast = document.getElementById("site-toast");
+
+  let previousFocus = null;
+  let toastTimeout = null;
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+    }
+
+    toastTimeout = setTimeout(function () {
+      toast.classList.remove("show");
+    }, 4300);
+  }
+
+  function openAvailabilityDialog(product) {
+    previousFocus = document.activeElement;
+    dialogProduct.textContent = product;
+
+    const subject = "Curravue Product Availability: " + product;
+    const body =
+      "Hello Curravue,%0D%0A%0D%0A" +
+      "I would like more information about availability for " +
+      encodeURIComponent(product) +
+      ".%0D%0A%0D%0AThank you.";
+
+    availabilityEmail.href =
+      "mailto:support@curravue.com?subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      body;
+
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+      closeDialogButton.focus();
+    } else {
+      showToast("Please email support@curravue.com for product availability.");
+    }
+  }
+
+  document.querySelectorAll(".checkout-placeholder").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const product = button.dataset.product;
+      const checkoutUrl = button.dataset.checkoutUrl.trim();
+
+      if (checkoutUrl) {
+        try {
+          const parsed = new URL(checkoutUrl);
+
+          if (
+            parsed.protocol === "https:" &&
+            (parsed.hostname === "whop.com" ||
+             parsed.hostname.endsWith(".whop.com"))
+          ) {
+            window.open(
+              parsed.href,
+              "_blank",
+              "noopener,noreferrer"
+            );
+            return;
+          }
+        } catch (error) {
+          // Invalid or missing URL uses the availability dialog.
+        }
+      }
+
+      openAvailabilityDialog(product);
+    });
+  });
+
+  closeDialogButton.addEventListener("click", function () {
+    dialog.close();
+  });
+
+  dialog.addEventListener("click", function (event) {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+
+  dialog.addEventListener("close", function () {
+    if (previousFocus && typeof previousFocus.focus === "function") {
+      previousFocus.focus();
+    }
+  });
+
+  // AUTOMATIC COPYRIGHT YEAR
+  document.getElementById("copyright-year").textContent =
+    new Date().getFullYear();
+
+  // SECTION ACTIVE NAVIGATION
+  const navLinks = document.querySelectorAll(
+    ".nav-link[href^='#']"
+  );
+
+  const observedSections = document.querySelectorAll(
+    "#features, #products, #why-curravue, #faq"
+  );
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+
+          navLinks.forEach(function (link) {
+            const active =
+              link.getAttribute("href") === "#" + entry.target.id;
+
+            link.classList.toggle("active", active);
+
+            if (active) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        });
+      },
+      {
+        rootMargin: "-100px 0px -55% 0px",
+        threshold: 0
+      }
+    );
+
+    observedSections.forEach(function (section) {
+      observer.observe(section);
+    });
+  }
+
+  // HANDLE DIRECT LINKS TO PRODUCT AUDIENCES
+  const urlParams = new URLSearchParams(window.location.search);
+  const audienceParam = urlParams.get("audience");
+
+  if (audienceParam === "k12" || audienceParam === "college") {
+    setProductFilter(audienceParam);
+  }
+})();
+</script>
+
+</body>
+</html>
